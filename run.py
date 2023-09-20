@@ -4,7 +4,6 @@ if __name__ == '__main__':
     
     app.run(debug=True)
 
-from market import routes
 
 
 
