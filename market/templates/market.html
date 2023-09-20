@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
+</head>
+
+<body>
+    {%extends 'nav_bar.html'%} {%block content%}
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Price</th>
+                <th scope="col">Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in item%}
+            <tr>
+                <th scope="row">{{i.id}}</th>
+                <td>{{i.name}}</td>
+                <td>{{i.barcode}}</td>
+                <td>{{i.price}}</td>
+                <td>
+                    <button class="btn btn-outline btn-info">More</button>
+                    <button class="btn btn-outline btn-success">Purchace this item</button>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+
+</body>
+<style>
+    body {
+        background-color: #212121;
+        color: white;
+    }
+</style>
+{%endblock%}
+
+</html>
