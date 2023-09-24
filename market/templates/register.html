@@ -7,11 +7,29 @@
     <title>register</title>
 </head>
 
-<body>
-    {% extends "navbar.html"%} {% block content %}
-    <h1>Register Page</h1>
-    {% endblock %}
+<body class="text-center">
+    {% extends "nav_bar.html"%} {% block content %}
+    <div class="container">
+        <img src="static/images/tito.jpg" height="" alt="">
+        <br>
+        <h1 class=" h3 mb-3 font-weight-normal ">Create a new account</h1>
+        <br>
+        <form method="POST" class="form-register" style="color: white;">
+            {{form.hidden_tag()}} {{form.username.label()}} {{form.username(class="form-control",placeholder="user Name")}} {{form.email_address.label()}} {{form.email_address(class="form-control",placeholder="Email Address")}} {{form.password1.label()}} {{form.password1(class="form-control",placeholder="Password")}}
+            {{form.password2.label()}} {{form.password2(class="form-control",placeholder="Confirm Password")}}
+            <br> {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+        </form>
+    </div>
+
+
 
 </body>
+<style>
+    body {
+        background-color: #212121;
+        color: white;
+    }
+</style>
+{%endblock%}
 
 </html>
