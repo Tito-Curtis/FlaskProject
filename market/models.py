@@ -17,6 +17,13 @@ class User(db.Model):
     def __repr__(self):
         return (f'{self.username}')
 
+    @property
+    def password(self):
+        return self.password
+    @password.setter
+    def password(self, plain_text_password):
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf=8')
+
 
 
 class Item(db.Model):
@@ -43,26 +50,26 @@ with app.app_context():
     #db.drop_all()
 
 with app.app_context():
-    user1=User.query.filter_by(username='Curtis Baidoo').first()
-    user2=User.query.filter_by(username='Fredrick Asamoah').first()
-    user3=User.query.filter_by(username='Solomon Gyan').first()
-    user4=User.query.filter_by(username='Benedict Mensah').first()
+    #user1=User.query.filter_by(username='Curtis Baidoo').first()
+    # user2=User.query.filter_by(username='Fredrick Asamoah').first()
+    # user3=User.query.filter_by(username='Solomon Gyan').first()
+    # user4=User.query.filter_by(username='Benedict Mensah').first()
 
-    if not user1:
-        user1 = User('Curtis Baidoo','jnrCurtis75@gmail.com','tiscuritocurtis10')
-        db.session.add(user1)
-    if not user2:
-        user2 = User('Fredrick Asamoah','fredrick84@gmail.com','divisive2200')
-        db.session.add(user2)
+    # if not user1:
+    #     user1 = User('Curtis Baidoo','jnrCurtis75@gmail.com','tiscuritocurtis10')
+    #     db.session.add(user1)
+    # if not user2:
+    #     user2 = User('Fredrick Asamoah','fredrick84@gmail.com','divisive2200')
+    #     db.session.add(user2)
 
-    if not user3:
-        user3 = User('Solomon Gyan','solly10_@gmail.com','solly10_')
-        db.session.add(user3)
+    # if not user3:
+    #     user3 = User('Solomon Gyan','solly10_@gmail.com','solly10_')
+    #     db.session.add(user3)
 
     
-    if not user4:
-        user4 = User('Benedict Mensah','billygoat@gmail.com','billy1212')
-        db.session.add(user4)
+    # if not user4:
+    #     user4 = User('Benedict Mensah','billygoat@gmail.com','billy1212')
+    #     db.session.add(user4)
 
     db.session.commit()
     db.session.close()
