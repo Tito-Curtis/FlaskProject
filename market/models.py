@@ -1,6 +1,12 @@
-from market import db,app
+from market import db,app,login_manager
+from market import bcrypt
+from flask_login import UserMixin
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model,UserMixin):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(40),nullable=False, unique=True)
     email_address=db.Column(db.String(60), nullable=False, unique=True) 
@@ -8,10 +14,10 @@ class User(db.Model):
     budget=db.Column(db.Integer,nullable=False, default=1000)
     items=db.relationship('Item',backref='owned_user',lazy=True)
 
-    def __init__(self,username,email_address,password_hash):
-        self.username = username
-        self.email_address = email_address
-        self.password_hash = password_hash
+    # def __init__(self,username,email_address,password_hash):
+    #     self.username = username
+    #     self.email_address = email_address
+    #     self.password_hash = password_hash
      
 
     def __repr__(self):
@@ -24,6 +30,8 @@ class User(db.Model):
     def password(self, plain_text_password):
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf=8')
 
+    def check_password_correction(self,attempted_password):
+        return bcrypt.check_password_hash(self.password_hash,attempted_password)
 
 
 class Item(db.Model):
@@ -77,35 +85,33 @@ with app.app_context():
 
 
 with app.app_context():
-    Item1=Item.query.filter_by(name='Itel').first()
-    Item2=Item.query.filter_by(name='Samsung A13s').first()
-    Item3=Item.query.filter_by(name='Hp Laptop').first()
-    Item4=Item.query.filter_by(name='Iphone x').first()
-    Item1.owner = User.query.filter_by(username='Curtis Baidoo').first().id
-    Item2.owner = User.query.filter_by(username='Fredrick Asamoah').first().id
-    Item3.owner = User.query.filter_by(username='Solomon Gyan').first().id
-    Item4.owner = User.query.filter_by(username='Benedict Mensah').first().id
-    if not Item1:
-        Item1=Item('Itel', 2000,'993216299897','2020 model')
+    pass
+    # Item1=Item.query.filter_by(name='Itel').first()
+    # Item2=Item.query.filter_by(name='Samsung A13s').first()
+    # Item3=Item.query.filter_by(name='Hp Laptop').first()
+    # Item4=Item.query.filter_by(name='Iphone x').first()
+    # Item1.owner = User.query.filter_by(username='Curtis Baidoo').first().id
+    # Item2.owner = User.query.filter_by(username='Fredrick Asamoah').first().id
+    # Item3.owner = User.query.filter_by(username='Solomon Gyan').first().id
+    # Item4.owner = User.query.filter_by(username='Benedict Mensah').first().id
+    # if not Item1:
+    #     Item1=Item('Itel', 2000,'993216299897','2020 model')
 
-        db.session.add(Item1)
+    #     db.session.add(Item1)
     
-    if not Item2:
+    # if not Item2:
 
-        Item2=Item('Samsung A13s',1400,'123915473165','super strong')
-        db.session.add(Item2)
+    #     Item2=Item('Samsung A13s',1400,'123915473165','super strong')
+    #     db.session.add(Item2)
 
-    if not Item3:
-        Item3=Item('Hp Laptop',6900,'231905128446','high quality')
-        db.session.add(Item3)
+    # if not Item3:
+    #     Item3=Item('Hp Laptop',6900,'231905128446','high quality')
+    #     db.session.add(Item3)
 
-    if not Item4:
-        Item4=Item('Iphone x', 7100,'111000111000','high picture quality')
-        db.session.add(Item4)
-
-
-    db.session.commit()
-    db.session.close()
+    # if not Item4:
+    #     Item4=Item('Iphone x', 7100,'111000111000','high picture quality')
+    #     db.session.add(Item4)
 
 
-  
+    # db.session.commit()
+    # db.session.close()

@@ -4,29 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>register</title>
+    <title>Login</title>
 </head>
+{% extends "nav_bar.html"%} {% block content%}
 
 <body class="text-center">
-    {% extends "nav_bar.html"%} {% block content %}
     <div class="container">
 
-        <form method="POST" class="form-register" style="color: white;">
+
+        <form method="POST" class="form-signin" style="color:white">
+            {{ form.hidden_tag()}}
             <img src="data:image/jpeg;base64,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"
                 height="" alt="">
             <br>
-            <h1 class=" h3 mb-3 font-weight-normal ">Create a new account</h1>
-            <br> {{form.hidden_tag()}} {{form.username.label()}} {{form.username(class="form-control",placeholder="user Name")}} {{form.email_address.label()}} {{form.email_address(class="form-control",placeholder="Email Address")}} {{form.password1.label()}}
-            {{form.password1(class="form-control",placeholder="Password")}} {{form.password2.label()}} {{form.password2(class="form-control",placeholder="Confirm Password")}}
+            <h1 class=" h3 mb-3 font-weight-normal ">Please Login</h1>
+            <br> {{form.username.label()}} {{form.username(class="form-control",placeholder="User name")}} {{form.password.label()}} {{form.password(class="form-control",placeholder="Password")}}
             <br>
             <div class="checkbox mb-3">
-                <h6>Already have an account ?</h6>
-                <a class="btn btn-sm btn-secondary" href="{{ url_for('login')}}">Login</a>
+                <h6>Do not have account ?</h6>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('register')}}">Register</a>
             </div>
             {{form.submit(class="btn btn-lg btn-block btn-primary")}}
         </form>
     </div>
-
 
 
 </body>
